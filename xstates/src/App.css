@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.select{
+  min-width: 200px;
+  margin: 1rem;
+  height: 40px;
+}
+
+h2{
+  margin-top: 5rem;
+  text-align: center;
+}
+p{
+  margin-top: 3rem;
+}
