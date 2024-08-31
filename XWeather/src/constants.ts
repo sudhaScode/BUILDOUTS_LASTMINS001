@@ -4,7 +4,7 @@ export const fetchAPI = async (city:string) => {
     if (city.toLowerCase() === "banglore" || city.toLowerCase() === "bengluru") {
         city = "Bangalore";
     }
-    let URL = `https://api.weatherapi.com/v1/current.json?key=da7a105feaa6431e8b5161159242908&q=${city}`;
+    const URL = `https://api.weatherapi.com/v1/current.json?key=da7a105feaa6431e8b5161159242908&q=${city}`;
     //console.log("CUSTOM URL::", URL)
     try {
         const response = await axios.get(URL);
