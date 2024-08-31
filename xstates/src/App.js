@@ -94,7 +94,7 @@ function App() {
 
     </div>
     {cities.selected &&<>
-        <p> <span style={{fontWeight:"bold"}}>{`You Selected `}</span><span style={{fontWeight:"bold", fontSize:"1.5rem"}}>{`${cities.selected}, `}</span>{`${states.selected}, ${countries.selected}`}</p>
+        <p>`You Selected {cities.selected}, {states.selected}, {countries.selected}`</p>
       </>}
     </>
   );
