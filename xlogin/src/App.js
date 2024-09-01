@@ -1,46 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
+import React, { useState } from "react";
 
-const creadentials ={
-  username:"user",
-  password:"password"
-}
-
+const customDictionary = {
+  teh: "the",
+  wrok: "work",
+  fot: "for",
+  exampl: "example",
+};
 function App() {
+  const [state, setState] = useState({
+    inputText: "",
+    suggestedText: "",
+  });
 
-  const [isValidate, setIsValidate] = useState("")
-  // const [password, setPassword] = useState("")
-  const submitHandler=(event)=>{
-      event.preventDefault()
-      const username = event.target.username.value ===creadentials.username
-      const password = event.target.password.value === creadentials.password
-      if(username && password){
-         setIsValidate("Submitted")
-      }
-      else{
-        setIsValidate("error")
-      }
-  }
+  const handleInputChange = (e) => {
+    const text = e.target.value;
+    setState((prev) => ({ ...prev, inputText: text }));
+
+    // Implement a basic spelling check and correction
+    const words = text.split(" ");
+    const correctedWords = words.map((word) => {
+      const correctedWord = customDictionary[word.toLowerCase()];
+      return correctedWord || word;
+    });
+
+    const correctedText = correctedWords.join(" ");
+
+    // Set the suggested text (first corrected word)
+    const firstCorrection = correctedWords.find(
+      (word, index) => word !== words[index]
+    );
+    setState((prev) => ({ ...prev, suggestedText: firstCorrection || "" }));
+  };
   return (
     <div className="App">
-      <h3>Login Page</h3>
-      {isValidate ==="error" && <p>Invalid username or password</p>}
-     {isValidate === "Submitted"?<><h4>Welcome, user!</h4></>:
-      <form onSubmit={submitHandler}>
-        <div>
-        <label htmlFor="username">Username:</label>
-        <input type='text' id = "username" name = "username" required placeholder='username' autoFocus onChange={()=>setIsValidate("")}/>
-        </div>
-        <div>
-        <label htmlFor="password">Password:</label>
-        <input type='password' id ="password" name="password" required placeholder='password' onChange={()=>setIsValidate("")}/>
-        </div>
-      <button type='submit'>Submit</button>
-    </form>}
-
+      <h1>Spell Check and Auto-Correction</h1>
+      <textarea
+        value={state.inputText}
+        onChange={handleInputChange}
+        placeholder="Enter text..."
+        rows={5}
+        cols={40}
+      />
+      {state.suggestedText && (
+        <p>
+          Did you mean: <strong>{state.suggestedText}</strong>?
+        </p>
+      )}
     </div>
   );
 }
-
 export default App;
